@@ -45,7 +45,7 @@ def save_to_file(df, date):
     writer.save()  # 保存
 
 
-def deal_file(date="20220416"):
+def deal_file(date="2022.04.18"):
     df = pd.DataFrame(columns=["姓名", "文件名日期", "截图姓名", "结果", "采样日期", "是否完成"])
     for file in os.listdir(date):
         img_path = date + "/" + file
