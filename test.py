@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from cnstd import CnStd
 from cnocr import CnOcr
 
