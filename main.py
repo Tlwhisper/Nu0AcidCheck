@@ -30,9 +30,9 @@ def match(reg, total):
 
 
 def get_date_delta(day1, day2):
-    time_array1 = time.strptime(day1, "%Y.%m.%d")
+    time_array1 = time.strptime(day1, "%Y-%m-%d")
     timestamp_day1 = int(time.mktime(time_array1))
-    time_array2 = time.strptime(day2, "%Y.%m.%d")
+    time_array2 = time.strptime(day2, "%Y-%m-%d")
     timestamp_day2 = int(time.mktime(time_array2))
     return (timestamp_day2 - timestamp_day1) // 60 // 60 // 24
 
@@ -45,11 +45,11 @@ def save_to_file(df, date):
     writer.save()  # 保存
 
 
-def deal_file(date="2022.04.18"):
+def deal_file(date="2022-04-18"):
     df = pd.DataFrame(columns=["姓名", "文件名日期", "截图姓名", "结果", "采样日期", "是否完成"])
     for file in os.listdir(date):
         img_path = date + "/" + file
-        username = file.split(".")[0]
+        username = file.split("-")[0]
         img = cv2.imread(img_path)
         results = table_engine(img)
 
@@ -61,7 +61,9 @@ def deal_file(date="2022.04.18"):
         print(total)
 
         name_ocr = match(r'姓\s*名：\s*(\S*)', total)
+        #time_ocr = match(r'核酸检测时间^\d{4}[-]([0][1-9]|(1[0-2]))[-]([1-9]|([012]\d)|(3[01]))(([0-1]{1}[0-9]{1})|([2]{1}[0-4]{1}))([:])(([0-5]{1}[0-9]{1}|[6]{1}[0]{1}))([:])((([0-5]{1}[0-9]{1}|[6]{1}[0]{1})))$', total)
         time_ocr = match(r'核酸检测时间\s*(\S*)', total)
+        time_ocr = time_ocr[:10]
         nucleic_result_ocr = match(r'(\S性)', total)
         print("name:", name_ocr)
         print("time:", time_ocr)
