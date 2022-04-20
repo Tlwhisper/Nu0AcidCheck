@@ -4,7 +4,7 @@ from cnocr import CnOcr
 std = CnStd()
 cn_ocr = CnOcr()
 
-box_infos = std.detect('2020-04-18/杨杨杨.jpg')
+box_infos = std.detect('2022-04-18/杨杨杨.jpg')
 
 total = []
 for box_info in box_infos['detected_texts']:

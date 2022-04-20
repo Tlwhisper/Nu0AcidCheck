@@ -8,7 +8,7 @@ import fire
 
 table_engine = PPStructure(show_log=False)
 
-validate_date_delta = 2
+validate_date_delta = 4
 
 
 def check(date, username, name_ocr, time_ocr):
@@ -49,7 +49,7 @@ def deal_file(date="2022-04-18"):
     df = pd.DataFrame(columns=["姓名", "文件名日期", "截图姓名", "结果", "采样日期", "是否完成"])
     for file in os.listdir(date):
         img_path = date + "/" + file
-        username = file.split("-")[0]
+        username = file.split(".")[0]
         img = cv2.imread(img_path)
         results = table_engine(img)
 
